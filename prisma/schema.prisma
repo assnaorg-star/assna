@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Event {
+  id          String   @id @default(dbgenerated("concat('evnt', lpad(nextval('events_id_seq')::text, 5, '0'))"))
+  date        DateTime
+  speaker     String
+  affiliation String
+  talkTitle   String
+  type        String   // e.g. "Seminar", "Workshop", "Panel"
+  recordingUrl String? // optional YouTube / Zoom link
+  isUpcoming  Boolean  @default(false)
+  description String?  // Detailed description for the pop-up
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  registrations Registration[]
+
+  @@map("events")
+}
+
+model Registration {
+  id          String   @id @default(cuid())
+  eventId     String
+  event       Event    @relation(fields: [eventId], references: [id])
+  fullName    String
+  email       String
+  affiliation String
+  position    String
+  createdAt   DateTime @default(now())
+
+  @@map("registrations")
+}
