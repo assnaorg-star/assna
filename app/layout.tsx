@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://assna.org'),
   title: 'ASSNA – Association of Sri Lankan Statisticians in North America',
   description:
     'A professional organization dedicated to advancing statistical science, strengthening professional networks, and promoting collaboration among statisticians of Sri Lankan origin in North America.',

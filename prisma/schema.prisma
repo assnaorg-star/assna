@@ -30,7 +30,7 @@ model Event {
 model Registration {
   id          String   @id @default(cuid())
   eventId     String
-  event       Event    @relation(fields: [eventId], references: [id])
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
   fullName    String
   email       String
   affiliation String
