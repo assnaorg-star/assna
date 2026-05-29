@@ -5,12 +5,21 @@ import { prisma } from '@/lib/prisma'
 import EventCardActions from './EventCardActions'
 import EventFilter from './EventFilter'
 
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  }).format(new Date(date))
+function formatDate(date: Date, timezone?: string | null): string {
+  try {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: timezone || 'America/Chicago',
+    }).format(new Date(date))
+  } catch (e) {
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date(date))
+  }
 }
 
 export default async function EventsSection() {
@@ -87,7 +96,7 @@ export default async function EventsSection() {
               ) : (
                 pastEvents.map((event) => (
                   <tr key={event.id}>
-                    <td style={{ whiteSpace: 'nowrap' }}>{formatDate(event.date)}</td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{formatDate(event.date, event.timezone)}</td>
                     <td style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 500 }}>
                       {event.speaker}
                     </td>

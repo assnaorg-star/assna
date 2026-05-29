@@ -7,6 +7,7 @@ interface EventModalProps {
   event: {
     id: string
     date: Date
+    timezone?: string | null
     speaker: string
     affiliation: string
     talkTitle: string
@@ -54,11 +55,38 @@ export default function EventModal({ event, isOpen, onClose }: EventModalProps) 
           <div className="modal-event-meta">
             <p><strong>Speaker:</strong> {event.speaker}</p>
             <p><strong>Affiliation:</strong> {event.affiliation}</p>
-            <p><strong>Date:</strong> {new Intl.DateTimeFormat('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            }).format(new Date(event.date))}</p>
+            <p suppressHydrationWarning><strong>Date:</strong> {(() => {
+              try {
+                return new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  timeZone: event.timezone || 'America/Chicago',
+                }).format(new Date(event.date))
+              } catch (e) {
+                return new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                }).format(new Date(event.date))
+              }
+            })()}</p>
+            <p suppressHydrationWarning><strong>Time:</strong> {(() => {
+              try {
+                return new Intl.DateTimeFormat('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  timeZone: event.timezone || 'America/Chicago',
+                  timeZoneName: 'short',
+                }).format(new Date(event.date))
+              } catch (e) {
+                return new Intl.DateTimeFormat('en-US', {
+                  hour: 'numeric',
+                  minute: 'numeric',
+                  timeZoneName: 'short',
+                }).format(new Date(event.date))
+              }
+            })()}</p>
           </div>
         </div>
 
