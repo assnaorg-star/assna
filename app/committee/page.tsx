@@ -12,7 +12,7 @@ const executiveCommittee = [
   { initials: 'UW', name: 'Uditha Wijesuriya',      role: 'President',              isPresident: true, image: '/Uditha Wijesuriya .jpg' },
   { initials: 'KJ', name: 'Kalanka Jayalath',        role: 'Vice-President',         isPresident: true, image: '/Kalanka Jayalath.jpg' },
   { initials: 'DD', name: 'Dulanjalee Devage',        role: 'Secretary',              isPresident: false, image: '/Dulanjalee Dewage.jpg' },
-  { initials: 'KW', name: 'Kanchana Wijekularatne',  role: 'Treasurer',              isPresident: false },
+  { initials: '', name: 'Dhanush Wijekularatne',  role: 'Treasurer',              isPresident: false },
   { initials: 'HR', name: 'Hansapani Rodrigo',        role: 'Communication Officer',  isPresident: false, image: '/Hansapani Rodrigo.jpg' },
   { initials: 'LP', name: 'Lochana Palayangoda',      role: 'Committee Member',       isPresident: false },
   { initials: 'WJ', name: 'Wasantha Jayawardene',     role: 'Committee Member',       isPresident: false, image: '/Wasantha Jayawardene .jpg' },
