@@ -12,14 +12,14 @@ const executiveCommittee = [
   { initials: 'UW', name: 'Uditha Wijesuriya',      role: 'President',              isPresident: true, image: '/Uditha Wijesuriya .jpg' },
   { initials: 'KJ', name: 'Kalanka Jayalath',        role: 'Vice-President',         isPresident: true, image: '/Kalanka Jayalath.jpg' },
   { initials: 'DD', name: 'Dulanjalee Devage',        role: 'Secretary',              isPresident: false, image: '/Dulanjalee Dewage.jpg' },
-  { initials: '', name: 'Dhanush Wijekularatne',  role: 'Treasurer',              isPresident: false },
+  { initials: '', name: 'Dhanush Wijekularatne',  role: 'Treasurer',              isPresident: false, image: '/Danush Wijekularathna.jpg' },
   { initials: 'HR', name: 'Hansapani Rodrigo',        role: 'Communication Officer',  isPresident: false, image: '/Hansapani Rodrigo.jpg' },
-  { initials: 'LP', name: 'Lochana Palayangoda',      role: 'Committee Member',       isPresident: false },
+  { initials: 'LP', name: 'Lochana Palayangoda',      role: 'Committee Member',       isPresident: false, image: '/Lochana Palayangoda.jpg' },
   { initials: 'WJ', name: 'Wasantha Jayawardene',     role: 'Committee Member',       isPresident: false, image: '/Wasantha Jayawardene .jpg' },
-  { initials: 'SA', name: 'Sakitha Ariyarathne',      role: 'Committee Member',       isPresident: false },
+  { initials: 'SA', name: 'Sakitha Ariyarathne',      role: 'Committee Member',       isPresident: false, image: '/Sakitha Ariyarathne.jpg' },
   { initials: 'SA', name: 'Sasanka Adikari',          role: 'Committee Member',       isPresident: false, image: '/Sasanka Adikari.jpg' },
-  { initials: 'MI', name: 'Malinda Iluppangama',      role: 'Committee Member',       isPresident: false, image: '/Malinda Illupangama .jpg' },
-  { initials: 'SA', name: 'Stephanson Anthonymuthu',  role: 'Committee Member',       isPresident: false },
+  { initials: 'MI', name: 'Malinda Iluppangama',      role: 'Committee Member',       isPresident: false, image: '/Malinda Illupangama.jpg' },
+  { initials: 'SA', name: 'Stephanson Anthonymuthu',  role: 'Committee Member',       isPresident: false, image: '/Steephanson Anthonymuthu.jpg' },
 ]
 
 // Advisory board
