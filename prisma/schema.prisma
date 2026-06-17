@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Event {
-  id            String         @id @default(dbgenerated("concat('evnt', lpad((nextval('events_id_seq'::regclass))::text, 5, '0'::text))"))
+  id            String         @id @default(dbgenerated("concat('event', lpad((nextval('events_id_seq'::regclass))::text, 6, '0'::text))"))
   date          DateTime
   timezone      String?        @default("America/Chicago")
   speaker       String
