@@ -38,3 +38,23 @@ model Registration {
 
   @@map("registrations")
 }
+
+model Member {
+  id           String   @id @default(dbgenerated("concat('mem', lpad((nextval('members_id_seq'::regclass))::text, 6, '0'::text))"))
+  fullName     String
+  position     String
+  affiliation  String
+  email        String   @unique
+  phone        String?
+  country      String
+  state        String
+  expertise    String
+  status       String
+  mentoring    String
+  volunteering String
+  shareName    String
+  createdAt    DateTime @default(now())
+
+  @@map("members")
+}
+

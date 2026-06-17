@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import CustomSelect from './CustomSelect'
+import { registerMember } from '@/app/actions/registerMember'
 
 const expertiseOptions = [
   { label: 'Statistics', value: 'Statistics' },
@@ -40,15 +41,19 @@ export default function MembershipRegistration() {
     setIsSubmitting(true)
     setMessage(null)
 
-    // Simulate API call for registration
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setMessage({ type: 'success', text: 'Successfully registered!' })
+    const formData = new FormData(e.currentTarget)
+    const result = await registerMember(formData)
+
+    setIsSubmitting(false)
+    if (result.success) {
+      setMessage({ type: 'success', text: 'Successfully registered as a member!' })
       setTimeout(() => {
         setIsOpen(false)
         setMessage(null)
       }, 3000)
-    }, 1000)
+    } else {
+      setMessage({ type: 'error', text: result.error || 'Failed to register. Please try again.' })
+    }
   }
 
   return (
