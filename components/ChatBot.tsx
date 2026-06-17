@@ -138,12 +138,13 @@ export default function ChatBot() {
   return (
     <>
       {/* Floating Button */}
-      <div className="chatbot-wrapper">
+      <div className="chatbot-wrapper" style={{ pointerEvents: 'none' }}>
         <button
           id="chatbot-toggle"
           className={`chatbot-fab ${isOpen ? 'chatbot-fab--open' : ''}`}
           onClick={handleToggle}
           aria-label="Toggle ASSNA Assistant"
+          style={{ pointerEvents: 'auto' }}
         >
           {isOpen ? (
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -167,6 +168,7 @@ export default function ChatBot() {
           className={`chatbot-window ${isOpen ? 'chatbot-window--open' : ''}`}
           role="dialog"
           aria-label="ASSNA AI Assistant"
+          style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
         >
           {/* Header */}
           <div className="chatbot-header">
@@ -231,7 +233,7 @@ export default function ChatBot() {
                       {msg.content}
                     </ReactMarkdown>
                   </div>
-                  <span className="chatbot-msg__time">{formatTime(msg.timestamp)}</span>
+                  <span className="chatbot-msg__time" suppressHydrationWarning>{formatTime(msg.timestamp)}</span>
                 </div>
               </div>
             ))}

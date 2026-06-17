@@ -1,7 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from 'next'
 import './globals.css'
-import ChatBot from '@/components/ChatBot'
+import ChatBotWrapper from '@/components/ChatBotWrapper'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://assna.org'),
@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         {children}
-        <ChatBot />
+        <ChatBotWrapper />
       </body>
     </html>
   )
