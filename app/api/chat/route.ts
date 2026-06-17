@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     const systemPrompt = getSystemPrompt(eventsText)
 
     const model = genAI.getGenerativeModel({
-      model: 'gemini-flash-latest',
+      model: 'gemini-2.5-flash',
     })
 
     // Build chat history (all except last message)
@@ -101,10 +101,10 @@ export async function POST(req: NextRequest) {
     const response = result.response.text()
 
     return NextResponse.json({ message: response })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Chat API error:', error)
     return NextResponse.json(
-      { error: 'Failed to process your request. Please try again.' },
+      { error: `Failed to process your request. Details: ${error?.message || String(error)}` },
       { status: 500 }
     )
   }
