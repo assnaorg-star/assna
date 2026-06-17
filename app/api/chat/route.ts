@@ -1,9 +1,12 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+import type { Event } from '@prisma/client'
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
 
-const SYSTEM_PROMPT = `You are ASSNA Assistant, a helpful and dedicated AI chatbot for ASSNA (Association of Sri Lankan Statisticians in North America). 
+function getSystemPrompt(eventsText: string) {
+  return `You are ASSNA Assistant, a helpful and dedicated AI chatbot for ASSNA (Association of Sri Lankan Statisticians in North America). 
 
 CRITICAL SAFETY & SCOPE RULE:
 - You are strictly allowed ONLY to answer questions, explain topics, or provide information directly related to ASSNA (Association of Sri Lankan Statisticians in North America), its events, membership, organization goals, executive committee, resources, or statistics-related activities specifically connected to ASSNA.
@@ -30,9 +33,13 @@ Key activities:
 - Collaboration with universities and research institutions
 - Awards and recognition programs for outstanding contributions to statistics
 
-If asked about specific upcoming event dates, prices, or registration details you don't have, kindly direct the user to check assna.org or contact the ASSNA team directly.
+ASSNA Events Information (from the database):
+${eventsText}
+
+If asked about specific upcoming event dates, details, that are NOT mentioned in the list above, or if they ask for details you don't have, tell the user: "Please send an email to info@assna.org to get this information."
 
 Always respond in a helpful, warm, and professional tone. Keep answers strictly focused and relevant to ASSNA. Use markdown formatting when appropriate (bold, lists, etc.) for clarity.`
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -41,6 +48,29 @@ export async function POST(req: NextRequest) {
     if (!messages || !Array.isArray(messages)) {
       return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
     }
+
+    // Fetch all events from database to inject into system prompt
+    let databaseEvents: Event[] = []
+    try {
+      databaseEvents = await prisma.event.findMany({
+        orderBy: { date: 'asc' },
+      })
+    } catch (dbError) {
+      console.error('Error fetching events for chatbot:', dbError)
+    }
+
+    const eventsText = databaseEvents.length > 0 
+      ? databaseEvents.map(e => `
+- Event Type: ${e.type}
+  Talk Title: "${e.talkTitle}"
+  Speaker: ${e.speaker} (${e.affiliation})
+  Date: ${e.date.toISOString()}
+  Description: ${e.description || 'No description provided'}
+  Upcoming: ${e.isUpcoming ? 'Yes' : 'No'}
+`).join('\n')
+      : 'No events listed currently.';
+
+    const systemPrompt = getSystemPrompt(eventsText)
 
     const model = genAI.getGenerativeModel({
       model: 'gemini-flash-latest',
@@ -59,7 +89,7 @@ export async function POST(req: NextRequest) {
 
     // Inject System Prompt as the first interaction
     history = [
-      { role: 'user', parts: [{ text: SYSTEM_PROMPT }] },
+      { role: 'user', parts: [{ text: systemPrompt }] },
       { role: 'model', parts: [{ text: 'Understood. I am ready to assist as the ASSNA Assistant.' }] },
       ...history
     ]
