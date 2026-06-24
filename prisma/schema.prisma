@@ -17,6 +17,7 @@ model Event {
   talkTitle     String
   type          String
   recordingUrl  String?
+  zoomUrl       String?
   isUpcoming    Boolean        @default(false)
   description   String?
   createdAt     DateTime       @default(now())
