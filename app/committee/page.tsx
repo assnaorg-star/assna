@@ -25,13 +25,6 @@ const executiveCommittee = [
 // Advisory board
 const advisoryBoard = [
   { 
-    initials: 'AN', 
-    name: 'Prof. Ampalavanar Nanthakumar', 
-    role: 'Advisory Board Member', 
-    affil: 'Mathematics Department\nOswego State University of New York', 
-    image: '/Amp Nanthakumar.jpg' 
-  },
-  { 
     initials: 'AM', 
     name: 'Prof. Ananda Manage', 
     role: 'Advisory Board Member', 
@@ -44,6 +37,13 @@ const advisoryBoard = [
     role: 'Advisory Board Member', 
     affil: 'Bioinformatics and Biostatistics\nSchool of Public Health and Information Sciences\nUniversity of Louisville', 
     image: '/KB Kulasekara.jpg' 
+  },
+  { 
+    initials: 'AN', 
+    name: 'Prof. Ampalavanar Nanthakumar', 
+    role: 'Advisory Board Member', 
+    affil: 'Mathematics Department\nOswego State University of New York', 
+    image: '/Amp Nanthakumar.jpg' 
   },
 ]
 
